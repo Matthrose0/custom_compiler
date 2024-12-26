@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Erzeugte Dateien (Assembler/Disassembler-Ausgaben)
+*.bin
+disassembled.txt
+output.*
+
+# Editor / Betriebssystem
+.vscode/
+.idea/
+VS_Extansions/
+.DS_Store
+Thumbs.db
+
+# Logisim-Sicherungen
+*.circ~
