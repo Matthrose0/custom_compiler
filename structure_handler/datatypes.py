@@ -3,6 +3,38 @@ from enum import Enum
 from typing import List, Optional, Union
 
 
+# Tokenizer
+class TokenType(Enum):
+    
+    KEYWORD = "KEYWORD"         # FUNC, MACRO, IF, ELIF, ... -> zu viel sonderlogik jedes mal notwendig
+    
+    IDENTIFIER = "IDENTIFIER"   # names of functions,...
+    REGISTER = "REGISTER"       # A, D, SP, LO, HI, ...
+    NUMBER = "NUMBER"
+    STRING = "STRING"
+
+    OPERATOR = "OPERATOR"       # +, -, *, /, <, >
+    JUMP = "JUMP"               # JLT, JEQ, JLE, JGT, JNE, JGE
+    
+    COMMENT = "COMMENT"
+    NEWLINE = "NEWLINE"
+    INDENT = "INDENT"
+    DEDENT = "DEDENT"
+    EOF = "EOF"
+
+@dataclass
+class Token:
+    type: TokenType
+    value: str
+    line: int
+    column: int
+
+
+
+
+
+
+
 class StructureParseError(Exception):
     """Custom exception for structure parsing errors."""
     pass
