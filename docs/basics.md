@@ -1,0 +1,2 @@
+- max. Zeilenlänge 110 Zeichen
+- Compiler unterstützt keine String-Interpolation.

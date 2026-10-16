@@ -18,32 +18,34 @@ class Disassembler:
         Bits 2-0:   Source register  Not used when Immediate  
 
     Args:
-        input_filename: Path to the binary file to disassemble
-        output_filename: Path where the assembly output will be written
-        config_name: Path to YAML configuration file containing instruction mappings
+        input_filename: Path to the assembly source file to process
+        output_filename: Path where the binary output will be written
+        instrruction_mappings_path: Path to YAML file containing instruction mappings
     """
     
-    def __init__(self, input_filename: str, output_filename: str, config_name: str) -> None:
+    def __init__(self, input_filename: str, output_filename: str, instrruction_mappings_path: str) -> None:
         self.input_filename: str = input_filename
         self.output_filename: str = output_filename
         self.instructions: List[str] = []
 
         if not os.path.isfile(self.input_filename):
             raise FileNotFoundError(f"Input-file not found: '{self.input_filename}'")
-        if not os.path.isfile(config_name):
-            raise FileNotFoundError(f"Configuration file not found: '{config_name}'")
+        if not os.path.isfile(self.output_filename):
+            raise FileNotFoundError(f"Output-file not found: '{self.output_filename}'")
+        if not os.path.isfile(instrruction_mappings_path):
+            raise FileNotFoundError(f"Configuration file not found: '{instrruction_mappings_path}'")
 
-        with open(config_name, "r") as f:
+        with open(instrruction_mappings_path, "r") as f:
             try:
                 self.MAPPINGS = yaml.safe_load(f)
             except yaml.YAMLError as e:
-                raise ValueError(f"Invalid YAML format in '{config_name}': {e}")
+                raise ValueError(f"Invalid YAML format in '{instrruction_mappings_path}': {e}")
 
         # Create reverse mappings for disassembly
         try:
             self._reverse_mappings()
         except KeyError as e:
-            raise KeyError(f"Missing mapping section in config: {e}")
+            raise KeyError(f"Missing mapping section in instruction_mappings: {e}")
 
     def _reverse_mappings(self) -> None:
         """Create reverse mappings from binary values to keywords."""
@@ -182,7 +184,7 @@ class Disassembler:
 if __name__ == "__main__":
     try:
         disassembler = Disassembler("output.bin", "disassembled.txt", 
-                                    "compiler_v5/Assembler/config.yaml")
+                                    "compiler_v5/Assembler/instructions.yaml")
         disassembler.run()
         print("Disassembly completed successfully!")
     except Exception as e:

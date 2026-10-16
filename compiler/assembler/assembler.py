@@ -19,7 +19,7 @@ class Assembler:
     Args:
         input_filename: Path to the assembly source file to process
         output_filename: Path where the binary output will be written
-        config_name: Path to YAML configuration file containing instruction mappings
+        instrruction_mappings_path: Path to YAML file containing instruction mappings
 
     Examples:
         - ADD D RAM; JNE
@@ -28,7 +28,7 @@ class Assembler:
         - NOP
     """
 
-    def __init__(self, input_filename: str, output_filename: str, config_name: str) -> None:
+    def __init__(self, input_filename: str, output_filename: str, instrruction_mappings_path: str) -> None:
         self.input_filename: str = input_filename
         self.output_filename: str = output_filename
         self.lines: List[str] = []
@@ -37,14 +37,14 @@ class Assembler:
             raise FileNotFoundError(f"Input-file not found: '{self.input_filename}'")
         if not os.path.isfile(self.output_filename):
             raise FileNotFoundError(f"Output-file not found: '{self.output_filename}'")
-        if not os.path.isfile(config_name):
-            raise FileNotFoundError(f"Configuration file not found: '{config_name}'")
+        if not os.path.isfile(instrruction_mappings_path):
+            raise FileNotFoundError(f"Configuration file not found: '{instrruction_mappings_path}'")
 
-        with open(config_name, "r") as f:
+        with open(instrruction_mappings_path, "r") as f:
             try:
                 self.MAPPINGS = yaml.safe_load(f)
             except yaml.YAMLError as e:
-                raise ValueError(f"Invalid YAML format in '{config_name}': {e}")
+                raise ValueError(f"Invalid YAML format in '{instrruction_mappings_path}': {e}")
 
         try:
             self.reg_map: dict[str, str] = self.MAPPINGS["registerSelect"]  # Bits 0-2
@@ -52,7 +52,7 @@ class Assembler:
             self.save_map: dict[str, str] = self.MAPPINGS["saveRegister"]  # Bits 9-12
             self.jmp_map: dict[str, str] = self.MAPPINGS["jumpConditions"]  # Bits 13-15
         except KeyError as e:
-            raise KeyError(f"Missing mapping section in config: {e}")
+            raise KeyError(f"Missing mapping section in instruction_mappings: {e}")
 
     def run(self) -> None:
         """
@@ -222,5 +222,5 @@ class Assembler:
 
 
 # test
-assembler = Assembler("input.txt", "output.bin", "compiler_v5/Assembler/config.yaml")
+assembler = Assembler("input.txt", "output.bin", "compiler_v5/Assembler/instructions.yaml")
 assembler.run()
