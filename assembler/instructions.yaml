@@ -1,0 +1,66 @@
+registerSelect:
+    # Bits 0-2
+    default: '000'
+    A:   '000'   # placeholder for operations with one operand only (INC, DEC, NOT, SHL, SHR, CPY); encoded like D
+    D:   '000'
+    LO:  '001'
+    HI:  '010'
+    RAM: '011'
+    IN:  '100'
+    SPL: '101'
+    SPH: '110'
+    FR:  '111'
+    # alias
+    LOW:    '001'
+    HIGH:   '010'
+    INPUT:  '100'
+    SPLOW:  '101'
+    SPHIGH: '110'
+    FLAGS:  '111'
+
+aluOperations:
+    # Bits 3-6
+    CPY: '0000'
+    MOV: '0001'
+    SHR: '0010'
+    SHL: '0011'
+    AND: '0100'
+    OR:  '0101'
+    XOR: '0110'
+    NOT: '0111'
+    ADD: '1000'
+    INC: '1001'
+    SUB: '1010'
+    DEC: '1011'
+    MIN: '1100'  # hardware: still to be added
+    MAX: '1101'  # hardware: still to be added
+    # 1110 and 1111 are reserved (planned: ADC / SBC, hardware: carry-in missing)
+
+saveRegister:
+    # Bits 9-12
+    default: '0000'
+    # actions
+    NOP:   '0000'
+    SYNC:  '0001'
+    HOLD:  '0010'
+    RESET: '0011'
+    # save register
+    D:   '1000'
+    LO:  '1001'
+    HI:  '1010'
+    RAM: '1011'
+    A:   '1100'
+    SPL: '1101'
+    SPH: '1110'
+    OUT: '1111'
+
+jumpConditions:
+    # Bits 13-15
+    default: '000'
+    JZ:  '001'
+    JN:  '010'
+    JC:  '011'
+    JNZ: '101'
+    JNN: '110'
+    JNC: '111'
+    JMP: '100'
