@@ -5,10 +5,13 @@ __pycache__/
 venv/
 .pytest_cache/
 
-# Erzeugte Dateien (Assembler/Disassembler-Ausgaben)
+# Erzeugte Dateien/debugging (Assembler/Disassembler-Ausgaben)
 *.bin
 disassembled.txt
 output.*
+intermediate.asm
+binaer.txt
+todu
 
 # Editor / Betriebssystem
 .vscode/
