@@ -1,6 +1,6 @@
 CONST NAME VALUE
-#bsjf sefe
-LABEL L_NAME #sef
+#test
+LABEL L_NAME #test2
 FUNC NAME(ARGS*):
     IF(REG1 VERGLEICHS_OP REG2):
         ...
@@ -19,8 +19,8 @@ WHILE(REG1 VERGLEICHS_OP REG2):
     ...
 
 
-hiefsf
-    hisfe
+error_test
+    error_test2
 
 
 Ziel = Rechnung; Jump
